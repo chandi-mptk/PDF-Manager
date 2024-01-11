@@ -197,12 +197,15 @@ class PDFViewer:
 
                     password_popup.grab_set()
                     password_popup.wait_window()
-                    
-                    # Attempt to decrypt the document
-                    if self.pdf_document.authenticate(self.password) > 0:
-                        break
+
+                    if self.pdf_document:                    
+                        # Attempt to decrypt the document
+                        if self.pdf_document.authenticate(self.password):
+                            break
+                        else:
+                            showerror("Error", "Incorrect password. Please try again.")
                     else:
-                        showerror("Error", "Incorrect password. Please try again.")
+                        break
                     
             if self.pdf_document is not None:
                 self.num_pages = self.pdf_document.page_count
